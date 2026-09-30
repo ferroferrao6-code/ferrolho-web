@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FERROlho - Processamento Remoto</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Fundo utilizando a imagem fornecida. Caso não carregue, mantém um fundo escuro elegante */
+            background-color: #020617;
+            background-image: url('fundo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* O Cartão Principal / Container */
+        .card {
+            background: linear-gradient(145deg, rgba(10, 17, 40, 0.95) 0%, rgba(4, 9, 20, 0.95) 100%);
+            border: 1px solid rgba(0, 162, 255, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 162, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Imagem Dinâmica do Topo */
+        .hero-image {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 24px auto;
+            display: block;
+            border-radius: 16px;
+            filter: drop-shadow(0 0 20px rgba(0, 162, 255, 0.3));
+        }
+
+        /* Tipografia */
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        h1 .highlight {
+            color: #00A2FF;
+        }
+
+        p {
+            color: #94A3B8;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            padding: 0 10px;
+        }
+
+        p b {
+            color: #E2E8F0;
+        }
+
+        /* Botão de Download */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #007AFF;
+            color: white;
+            text-decoration: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3);
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #0066d6;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 122, 255, 0.4);
+        }
+
+        .btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Secção de Informação (Rodapé do Card) */
+        .info-box {
+            display: flex;
+            align-items: center;
+            margin-top: 32px;
+            text-align: left;
+            padding: 0 10px;
+        }
+
+        .info-icon {
+            width: 44px;
+            height: 44px;
+            border: 2px solid #00A2FF;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(0, 162, 255, 0.2);
+        }
+
+        .info-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #00A2FF;
+        }
+
+        .info-text {
+            color: #00E676; /* Verde/Ciano exato do mockup */
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsividade para ecrãs menores */
+        @media (max-width: 480px) {
+            .card { padding: 30px 20px; }
+            h1 { font-size: 24px; }
+            p { font-size: 14px; }
+            .btn { font-size: 16px; padding: 14px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="painel-dinamico">
+        <!-- O conteúdo será injetado pelo JavaScript -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const painel = document.getElementById('painel-dinamico');
+            const ua = navigator.userAgent.toLowerCase();
+
+            // LINK DE DOWNLOAD OFICIAL DO GOOGLE DRIVE (Windows)
+            const linkDownloadPC = "https://drive.google.com/uc?export=download&id=1AtHZHcSHLMLVCh-YXg8bbxtNxFTtpPen";
+            const linkDownloadAndroid = "#";
+
+            // Ícone da Seta para a direita (SVG)
+            const iconArrow = `<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+
+            // Ícone "i" de Informação (SVG)
+            const iconInfo = `<svg viewBox="0 0 24 24"><path d="M12 11v6M12 7h.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+
+            // 1. Deteção de PC (Windows)
+            if (ua.includes('windows')) {
+                const iconWindows = `<svg viewBox="0 0 24 24"><path d="M3 5.55L10 4.5v7.5H3v-6.45zm0 7.5h7v7.5l-7-1.05V13zm8-8.6l10-1.5v9.1h-10V4.4zm10 10.1v9.1l-10-1.5v-7.6h10z"/></svg>`;
+
+                painel.innerHTML = `
+                    <img src="icones_web.png" alt="Dispositivos" class="hero-image">
+                    <h1>Processamento Remoto <span class="highlight">(Windows)</span></h1>
+                    <p>O seu telemóvel principal solicitou a conexão. Transfira o motor do <b>FERROlho Processamento Remoto</b> para usar este computador como servidor.</p>
+
+                    <a href="${linkDownloadPC}" class="btn">
+                        ${iconWindows}
+                        <span>Baixar Servidor para PC</span>
+                        ${iconArrow}
+                    </a>
+
+                    <div class="info-box">
+                        <div class="info-icon">${iconInfo}</div>
+                        <div class="info-text">Após descarregar, execute o ficheiro para gerar o seu código de emparelhamento.</div>
+                    </div>
+                `;
+            }
+            // 2. Deteção de Android
+            else if (ua.includes('android')) {
+                const iconAndroid = `<svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592c.1158-.2018.0468-.4583-.1554-.5745-.2032-.1165-.4586-.0461-.5749.1557l-2.022 3.502c-1.4338-.6554-3.15-.1795-5.1265-.1795-1.9765 0-3.6923.4759-5.1261 1.1312l-2.0224-3.502c-.1161-.2018-.3717-.2722-.5749-.1557-.2021.1162-.2711.3727-.1554.5745l1.9973 3.4592C2.688 11.9056.3262 15.426.1133 19.5393h23.773c-.2126-4.1133-2.5744-7.6337-6.9588-9.2179"/></svg>`;
+
+                painel.innerHTML = `
+                    <img src="icones_web_celular.png" alt="Dispositivos" class="hero-image">
+                    <h1>Processamento Remoto <span class="highlight">(Android)</span></h1>
+                    <p>O seu telemóvel principal solicitou a conexão. Transfira o motor do <b>FERROlho Processamento Remoto</b> para usar este aparelho como servidor.</p>
+
+                    <a href="${linkDownloadAndroid}" class="btn">
+                        ${iconAndroid}
+                        <span>Baixar Servidor para Android</span>
+                        ${iconArrow}
+                    </a>
+
+                    <div class="info-box">
+                        <div class="info-icon">${iconInfo}</div>
+                        <div class="info-text">Após instalar, abra a aplicação para exibir o código de emparelhamento.</div>
+                    </div>
+                `;
+            }
+            // 3. Outros (iOS, Mac, Linux)
+            else {
+                painel.innerHTML = `
+                    <h1>Sistema Não Suportado</h1>
+                    <p>O motor de Processamento Remoto do FERROlho está atualmente disponível para <b>Windows</b> e <b>Android</b>.</p>
+                    <a href="#" class="btn" style="background-color: #333; box-shadow: none; cursor: not-allowed; justify-content: center;">
+                        <span>Download Indisponível</span>
+                    </a>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
