@@ -14,7 +14,6 @@
         }
 
         body {
-            /* Fundo utilizando a imagem fornecida. Caso não carregue, mantém um fundo escuro elegante */
             background-color: #020617;
             background-image: url('fundo.png');
             background-size: cover;
@@ -31,7 +30,7 @@
 
         /* O Cartão Principal / Container */
         .card {
-            background: linear-gradient(145deg, rgba(10, 17, 40, 0.95) 0%, rgba(4, 9, 20, 0.95) 100%);
+            background: #020610; /* Se notar diferença na cor, ajuste este HEX para igualar o fundo da imagem */
             border: 1px solid rgba(0, 162, 255, 0.2);
             border-radius: 24px;
             padding: 40px;
@@ -49,8 +48,6 @@
             height: auto;
             margin: 0 auto 24px auto;
             display: block;
-            border-radius: 16px;
-            filter: drop-shadow(0 0 20px rgba(0, 162, 255, 0.3));
         }
 
         /* Tipografia */
@@ -135,7 +132,7 @@
         }
 
         .info-text {
-            color: #00E676; /* Verde/Ciano exato do mockup */
+            color: #00E676;
             font-size: 14px;
             font-weight: 400;
             line-height: 1.5;
@@ -164,22 +161,20 @@
             const painel = document.getElementById('painel-dinamico');
             const ua = navigator.userAgent.toLowerCase();
 
-            // LINK DE DOWNLOAD OFICIAL DO GOOGLE DRIVE (Windows)
+            // LINKS DE DOWNLOAD OFICIAIS DO GOOGLE DRIVE
             const linkDownloadPC = "https://drive.google.com/uc?export=download&id=1AtHZHcSHLMLVCh-YXg8bbxtNxFTtpPen";
-            const linkDownloadAndroid = "#";
+            const linkDownloadAndroid = "https://drive.google.com/uc?export=download&id=1jMVrPaXYjACQ61IOIMueifeSJ2ttn7hZ";
 
-            // Ícone da Seta para a direita (SVG)
+            // Ícones SVG
             const iconArrow = `<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
-
-            // Ícone "i" de Informação (SVG)
             const iconInfo = `<svg viewBox="0 0 24 24"><path d="M12 11v6M12 7h.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+            const iconWindows = `<svg viewBox="0 0 24 24"><path d="M3 5.55L10 4.5v7.5H3v-6.45zm0 7.5h7v7.5l-7-1.05V13zm8-8.6l10-1.5v9.1h-10V4.4zm10 10.1v9.1l-10-1.5v-7.6h10z"/></svg>`;
+            const iconAndroid = `<svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592c.1158-.2018.0468-.4583-.1554-.5745-.2032-.1165-.4586-.0461-.5749.1557l-2.022 3.502c-1.4338-.6554-3.15-.1795-5.1265-.1795-1.9765 0-3.6923.4759-5.1261 1.1312l-2.0224-3.502c-.1161-.2018-.3717-.2722-.5749-.1557-.2021.1162-.2711.3727-.1554.5745l1.9973 3.4592C2.688 11.9056.3262 15.426.1133 19.5393h23.773c-.2126-4.1133-2.5744-7.6337-6.9588-9.2179"/></svg>`;
 
             // 1. Deteção de PC (Windows)
             if (ua.includes('windows')) {
-                const iconWindows = `<svg viewBox="0 0 24 24"><path d="M3 5.55L10 4.5v7.5H3v-6.45zm0 7.5h7v7.5l-7-1.05V13zm8-8.6l10-1.5v9.1h-10V4.4zm10 10.1v9.1l-10-1.5v-7.6h10z"/></svg>`;
-
                 painel.innerHTML = `
-                    <img src="icones_web.png" alt="Dispositivos" class="hero-image">
+                    <img src="icones_web.png" alt="Dispositivos Windows" class="hero-image">
                     <h1>Processamento Remoto <span class="highlight">(Windows)</span></h1>
                     <p>O seu telemóvel principal solicitou a conexão. Transfira o motor do <b>FERROlho Processamento Remoto</b> para usar este computador como servidor.</p>
 
@@ -197,10 +192,8 @@
             }
             // 2. Deteção de Android
             else if (ua.includes('android')) {
-                const iconAndroid = `<svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592c.1158-.2018.0468-.4583-.1554-.5745-.2032-.1165-.4586-.0461-.5749.1557l-2.022 3.502c-1.4338-.6554-3.15-.1795-5.1265-.1795-1.9765 0-3.6923.4759-5.1261 1.1312l-2.0224-3.502c-.1161-.2018-.3717-.2722-.5749-.1557-.2021.1162-.2711.3727-.1554.5745l1.9973 3.4592C2.688 11.9056.3262 15.426.1133 19.5393h23.773c-.2126-4.1133-2.5744-7.6337-6.9588-9.2179"/></svg>`;
-
                 painel.innerHTML = `
-                    <img src="icones_web_celular.png" alt="Dispositivos" class="hero-image">
+                    <img src="icones_web_celular.png" alt="Dispositivos Android" class="hero-image">
                     <h1>Processamento Remoto <span class="highlight">(Android)</span></h1>
                     <p>O seu telemóvel principal solicitou a conexão. Transfira o motor do <b>FERROlho Processamento Remoto</b> para usar este aparelho como servidor.</p>
 
@@ -216,14 +209,37 @@
                     </div>
                 `;
             }
-            // 3. Outros (iOS, Mac, Linux)
+            // 3. Outros (iOS, Mac, Linux, etc.) - TELA DE INCOMPATIBILIDADE (Design Novo)
             else {
                 painel.innerHTML = `
-                    <h1>Sistema Não Suportado</h1>
-                    <p>O motor de Processamento Remoto do FERROlho está atualmente disponível para <b>Windows</b> e <b>Android</b>.</p>
-                    <a href="#" class="btn" style="background-color: #333; box-shadow: none; cursor: not-allowed; justify-content: center;">
-                        <span>Download Indisponível</span>
-                    </a>
+                    <img src="erro_dispositivo.png" alt="Erro de Compatibilidade" class="hero-image" style="max-width: 280px; margin-bottom: 24px;">
+
+                    <h1 style="font-size: 26px; margin-bottom: 12px; font-weight: 800;">
+                        <span style="color: #FF3B30;">Servidor não compatível</span><br>com este dispositivo
+                    </h1>
+
+                    <p style="color: #E2E8F0; font-size: 15px; margin-bottom: 30px;">
+                        O Servidor de Processamento <b>FERROlho</b> não é compatível<br>com o sistema operativo deste dispositivo.
+                    </p>
+
+                    <div style="display: flex; align-items: center; background: rgba(0, 162, 255, 0.05); border: 1px solid rgba(0, 162, 255, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: left;">
+                        <div style="flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: 2px solid #00A2FF; display: flex; align-items: center; justify-content: center; margin-right: 16px; box-shadow: 0 0 15px rgba(0, 162, 255, 0.2);">
+                            <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: #00A2FF; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        </div>
+                        <div style="font-size: 14px; color: #94A3B8; line-height: 1.6;">
+                            Esta restrição aplica-se somente ao Servidor de Processamento. O aplicativo <b>FERROlho</b> é compatível e pode ser utilizado normalmente <span style="color: #00A2FF; font-weight: 600;">no seu dispositivo</span>.
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; text-align: left; padding: 0 10px;">
+                        <div style="display: flex; gap: 8px; margin-right: 16px; flex-shrink: 0;">
+                            <svg viewBox="0 0 24 24" style="fill: #00A2FF; width: 32px; height: 32px;"><path d="M3 5.55L10 4.5v7.5H3v-6.45zm0 7.5h7v7.5l-7-1.05V13zm8-8.6l10-1.5v9.1h-10V4.4zm10 10.1v9.1l-10-1.5v-7.6h10z"/></svg>
+                            <svg viewBox="0 0 24 24" style="fill: #00E676; width: 32px; height: 32px;"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592c.1158-.2018.0468-.4583-.1554-.5745-.2032-.1165-.4586-.0461-.5749.1557l-2.022 3.502c-1.4338-.6554-3.15-.1795-5.1265-.1795-1.9765 0-3.6923.4759-5.1261 1.1312l-2.0224-3.502c-.1161-.2018-.3717-.2722-.5749-.1557-.2021.1162-.2711.3727-.1554.5745l1.9973 3.4592C2.688 11.9056.3262 15.426.1133 19.5393h23.773c-.2126-4.1133-2.5744-7.6337-6.9588-9.2179"/></svg>
+                        </div>
+                        <div style="font-size: 13.5px; color: #E2E8F0; line-height: 1.5;">
+                            Para utilizar o Servidor de Processamento, aceda a esta página através de um dispositivo compatível com <b style="color: #00A2FF;">Windows</b> ou <b style="color: #00A2FF;">Android</b>.
+                        </div>
+                    </div>
                 `;
             }
         });
