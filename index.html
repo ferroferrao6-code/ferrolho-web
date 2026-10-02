@@ -30,7 +30,7 @@
 
         /* O Cartão Principal / Container */
         .card {
-            background: #07101D; /* Azul escuro que iguala o fundo da imagem */
+            background: #00153A; /* Cor média otimizada para transição */
             border: 1px solid rgba(0, 162, 255, 0.2);
             border-radius: 24px;
             padding: 40px;
@@ -48,6 +48,9 @@
             height: auto;
             margin: 0 auto 24px auto;
             display: block;
+            /* Fade nas bordas para eliminar a caixa do gradiente */
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%);
+            mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%);
         }
 
         /* Tipografia */
